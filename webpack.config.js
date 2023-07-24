@@ -1,20 +1,34 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
 
-module.exports = (env, argv) => {
-    console.log(0, argv.mode, path.join(__dirname, 'public'));
-
-    return ({
-        mode: argv.mode || 'development',
-        devtool: argv.mode === 'development' ? 'source-map' : false,
-        entry: './src/index.js',
-        output: {
-            path: path.resolve(__dirname, 'dist'),
-            filename: 'main.js',
-        },
-        devServer: {
-            hot: true,
-            compress: true,
-            port: 9000,
-        },
-    });
-};
+module.exports = {
+    mode: 'development',
+    entry: path.resolve(__dirname, 'src', 'index.ts'),
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'main.js',
+        clean: true
+    },
+    devServer: {
+        static: path.join(__dirname, "dist"),
+        compress: true,
+        port: 4000,
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'public', 'index.html')
+        }),
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.ts?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+        ]
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
+    },
+}

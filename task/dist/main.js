@@ -17,7 +17,7 @@ const words = [
 
 const getRandomWords = (quantity) => {
     const tasks = [];
-    console.log(12);
+    console.log(16);
     for (let i = 0; i < quantity; i++) {
         tasks.push(words[Math.floor(Math.random() * words.length)]);
     }
