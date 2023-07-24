@@ -2,7 +2,7 @@ const tasksNumber = 6;
 const mistakesNumber = 3;
 
 const words = [
-      "apple",
+  "apple",
   "function",
   "timeout",
   "task",

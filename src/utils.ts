@@ -1,4 +1,7 @@
-export const getUniqRandomWords = (words: string[], quantity: number): string[] => {
+export const getUniqRandomWords = (
+  words: string[],
+  quantity: number,
+): string[] => {
   const uniqWords: string[] = [];
 
   while (uniqWords.length < quantity) {
@@ -9,5 +12,5 @@ export const getUniqRandomWords = (words: string[], quantity: number): string[] 
   return uniqWords;
 };
 
-export const getRandomLetters = (word: string = ''): string[] =>
+export const getRandomLetters = (word: string = ""): string[] =>
   word.split("").sort(() => (Math.random() > 0.5 ? 1 : -1));

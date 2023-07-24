@@ -1,8 +1,10 @@
-
-import { words, tasksNumber, mistakesNumber } from './config';
-import { getUniqRandomWords, getRandomLetters } from './utils';
-import { addEventListenerOnClick, addEventListenerOnKeyUpLetters } from './htmlHelprs';
-import { App } from './app';
+import { words, tasksNumber, mistakesNumber } from "./config";
+import { getUniqRandomWords, getRandomLetters } from "./utils";
+import {
+  addEventListenerOnClick,
+  addEventListenerOnKeyUpLetters,
+} from "./htmlHelprs";
+import { App } from "./app";
 
 (() => {
   const answerBlock = document.getElementById("answer") as HTMLDivElement;
@@ -15,25 +17,22 @@ import { App } from './app';
 
   const statistics: number[] = [...new Array(tasksNumber)].map(() => 0);
 
-  console.log(wordsForGame, tasksNumber);
-
   const getStatistics = () => {
     App.cleanBlock(answerBlock);
     App.cleanBlock(lettersBlock);
-    App.renderLetters(answerBlock, 'You_Finished!'.split(""));
+    App.renderLetters(answerBlock, "You_Finished!".split(""));
 
     setTimeout(() => {
-      console.log(statistics);
       statistics.forEach((item, index) => {
         const statisticsBlock = document.createElement("div");
-              statisticsBlock.id = "statistics-" + index;
-              statisticsBlock.className = "d-flex px-1 pt-1";
-              statisticsBlock.style.cssText += "gap: 0.25rem";
+        statisticsBlock.id = "statistics-" + index;
+        statisticsBlock.className = "d-flex px-1 pt-1";
+        statisticsBlock.style.cssText += "gap: 0.25rem";
         answerBlock.parentElement.appendChild(statisticsBlock);
 
         App.renderLetters(
           statisticsBlock,
-          [ ...wordsForGame[index].split(''), '   mistakes number - ' + item],
+          [...wordsForGame[index].split(""), "   mistakes number - " + item],
           item == 0 ? "btn-success" : "btn-danger",
         );
       });
@@ -46,7 +45,10 @@ import { App } from './app';
     } else {
       App.cleanBlock(answerBlock);
       App.setCurrentQuestion(countWord);
-      App.renderLetters(lettersBlock, getRandomLetters(wordsForGame[countWord]));
+      App.renderLetters(
+        lettersBlock,
+        getRandomLetters(wordsForGame[countWord]),
+      );
     }
   };
 
@@ -59,7 +61,7 @@ import { App } from './app';
         nextTask();
       }, 500);
     }
-  }
+  };
 
   const wrongAnswer = (): void => {
     statistics[countWord] = statistics[countWord] + 1;
@@ -67,7 +69,11 @@ import { App } from './app';
     if (countMistakes === mistakesNumber) {
       App.cleanBlock(lettersBlock);
       App.cleanBlock(answerBlock);
-      App.renderLetters(answerBlock, wordsForGame[countWord].split(""), "btn-danger");
+      App.renderLetters(
+        answerBlock,
+        wordsForGame[countWord].split(""),
+        "btn-danger",
+      );
       setTimeout(() => {
         countMistakes = 0;
         countAnswer = 0;
@@ -76,7 +82,7 @@ import { App } from './app';
         nextTask();
       }, 2500);
     }
-  }
+  };
 
   App.setTotalQuestions(tasksNumber);
   App.setCurrentQuestion(countWord);
@@ -88,7 +94,7 @@ import { App } from './app';
       rightAnswer: wordsForGame[countWord][countAnswer],
       rightCallback: rightAnswer,
       wrongCallback: wrongAnswer,
-    })
+    });
   });
 
   addEventListenerOnKeyUpLetters((event) => {
