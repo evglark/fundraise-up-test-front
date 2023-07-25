@@ -8,9 +8,6 @@ To start application in dev mode run:
   ```sh
   npm run dev
   ```
-
-### Production
-
 To build application
 * npm
   ```sh
